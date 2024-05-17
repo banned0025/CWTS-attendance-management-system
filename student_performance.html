@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base target="_top">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Performance</title>
+    <link rel="icon" href="LOGO.jpg" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: beige;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        h2 {
+            text-align: center;
+            color: #8b4513;
+            /* brown */
+        }
+
+        /* Add your CSS styles for displaying student performance */
+    </style>
+</head>
+
+<body>
+    <h2>Student Performance</h2>
+    <label for="rfidInput">Enter RFID:</label>
+    <input type="text" id="rfidInput" placeholder="Scan RFID to Get Student Performance">
+    <br>
+    <!-- Direct link to download the document -->
+    <button onclick="downloadDocument()">Download Document</button>
+    <div id="message"></div>
+
+    <script>
+        function downloadDocument() {
+            // Get the RFID value from the input field
+            var rfid = document.getElementById('rfidInput').value;
+
+            // Check if the RFID matches the specified values for downloading the documents
+            if (rfid === "0000909395") {
+                // Trigger download of 'Your Student Records.docx'
+                var link = document.createElement('a');
+                link.href = 'Your Student Records.docx';
+                link.download = 'Your Student Records.docx';
+                link.click();
+            } else if (rfid === "0000227855") {
+                // Trigger download of 'Your Records.docx'
+                var link = document.createElement('a');
+                link.href = 'Your Records.docx';
+                link.download = 'Your Records.docx';
+                link.click();
+            } else {
+                // Display error message
+                document.getElementById('message').innerText = 'RFID does not match any specified value for downloading a document.';
+            }
+        }
+    </script>
+</body>
+
+</html>

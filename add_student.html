@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base target="_top">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Student</title>
+    <link rel="icon" href="LOGO.jpg" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: beige;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        h2 {
+            text-align: center;
+            color: #8b4513;
+            /* brown */
+        }
+
+        form {
+            background-color: #f5deb3;
+            /* beige */
+            border-radius: 10px;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"],
+        input[type="submit"] {
+            width: calc(100% - 22px);
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #8b4513;
+            /* brown */
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #8b4513;
+            /* brown */
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #654321;
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #8b4513;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Add Student</h2>
+    <form id="addStudentForm">
+        <!-- Form for adding new student data -->
+        <label for="newStudentRFID">RFID Number:</label>
+        <input type="text" id="newStudentRFID" name="rfid" required>
+        <label for="newStudentId">Student ID:</label>
+        <input type="text" id="newStudentId" name="studentId" required><br>
+        <label for="newStudentName">Name:</label>
+        <input type="text" id="newStudentName" name="name" required><br>
+        <label for="newStudentGender">Gender:</label>
+        <input type="text" id="newStudentGender" name="gender" required><br>
+        <label for="newStudentAddress">Address:</label>
+        <input type="text" id="newStudentAddress" name="address" required><br>
+        <label for="newStudentContact">Contact:</label>
+        <input type="text" id="newStudentContact" name="contact" required><br>
+
+        <!-- Read-only input for displaying scanned RFID -->
+        <button type="button" onclick="scanRFID()">Scan RFID</button>
+        <input type="button" value="Add Student Data" onclick="addStudentData()">
+    </form>
+    <center>
+        <footer>© ABCDG 2024</footer>
+    </center>
+
+    <script>
+        // Add your JavaScript code here for adding a student
+        // Function to handle RFID scanning
+        function scanRFID() {
+            // Assuming the RFID reader sends the tag ID to a JavaScript function
+            var scannedRFID = getScannedRFID(); // Implement this function to get the scanned RFID tag ID
+            document.getElementById('newStudentRFID').value = scannedRFID;
+            alert('RFID scanned successfully: ' + scannedRFID);
+        }
+
+        // Function to handle form submission for adding new student data
+        function addStudentData() {
+            var formData = new FormData(document.getElementById("addStudentForm"));
+            fetch('https://script.google.com/macros/s/AKfycby2mhY_ITnAVO9HcCXcayQoywLgNfS7X_z3iMh5ygRjXlMEDK94fn9nIZT_Yv7GWWd4XQ/exec', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data);
+                    alert('Student data added successfully');
+                    document.getElementById("addStudentForm").reset();
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert('There was an error adding student data!');
+                });
+        }
+    </script>
+</body>
+
+</html>
